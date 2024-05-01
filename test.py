@@ -1,4 +1,4 @@
-#simple menu
+#simple menu.
 
 def menu():
 	user_input = input("\nEnter option: ")
