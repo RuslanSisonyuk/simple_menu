@@ -10,12 +10,12 @@
 import math
 
 def read_one_var():
-	var = input("\nNumber: ")
+	var = float(input("\nNumber: "))
 	return var
 
 def read_two_vars():
-	var1 = int(input("\nFirst number: "))
-	var2 = int(input("Second number: "))
+	var1 = float(input("\nFirst number: "))
+	var2 = float(input("Second number: "))
 	return var1,var2
 
 
@@ -32,9 +32,10 @@ def division(numbers):
 	return numbers[0] / numbers[1]
 
 def round_number(number):
-	return
+	return math.floor(number)
 
-def
+def power2(number):
+	return pow(number,2)
 
 
 def execute_option_type1(func,symbol):
@@ -45,7 +46,7 @@ def execute_option_type1(func,symbol):
 
 def execute_option_type2(func):
 	number = read_one_var()
-
+	print(f"\nResult of operation for {number} is: {func(number)}")
 	input("/Back to menu/")
 	menu()
 
@@ -64,7 +65,7 @@ def menu():
 		match user_input:
 			case "0":
 				print("Closing menu")
-				return 0
+				exit(1)
 			case "1":
 				execute_option_type1(addition,'+')
 			case "2":
@@ -74,8 +75,10 @@ def menu():
 			case "4":
 				execute_option_type1(division,'/')
 			case "5":
+				execute_option_type2(round_number)
 				menu()
 			case "6":
+				execute_option_type2(power2)
 				menu()
 			case _:
 				menu()
