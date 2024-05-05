@@ -9,6 +9,8 @@
 
 import math
 
+
+
 def read_one_var():
 	var = float(input("\nNumber: "))
 	return var
@@ -37,21 +39,32 @@ def round_number(number):
 def power2(number):
 	return pow(number,2)
 
+def store_operation(numbers,operation,result):
+	return {numbers,operation,result}
 
-def execute_option_type1(func,symbol):
+def view_op_history(op_history):
+	for op in op_history:
+		print(f"\n{op}")
+	input("//Continue//")
+
+def execute_option_type1(op_history,func,symbol):
 	numbers = read_two_vars()
-	print(f"\n{numbers[0]} {symbol} {numbers[1]} = {func(numbers)}\n")
-	input("/Back to menu/")
-	menu()
+	result = func(numbers)
+	print(f"\n{numbers[0]} {symbol} {numbers[1]} = {result}\n")
 
-def execute_option_type2(func):
+	op_history += store_operation(numbers,symbol,result)
+	
+	input("/Back to menu/")
+	menu(op_history)
+
+def execute_option_type2(op_history,func):
 	number = read_one_var()
 	print(f"\nResult of operation for {number} is: {func(number)}")
 	input("/Back to menu/")
-	menu()
+	menu(op_history)
 
 
-def menu():
+def menu(op_history):
 		print("Options:")
 		print(
 			"1: Addition\n"
@@ -59,7 +72,9 @@ def menu():
 			"3: Multiplication\n"
 			"4: Division\n"
 			"5: Round number\n"
-			"6: Square root")
+			"6: Square root\n"
+			"7: View history\n"
+			"0: Exit")
 
 		user_input = input("\nEnter option: ")
 		match user_input:
@@ -67,24 +82,27 @@ def menu():
 				print("Closing menu")
 				exit(1)
 			case "1":
-				execute_option_type1(addition,'+')
+				execute_option_type1(op_history,addition,'+')
 			case "2":
-				execute_option_type1(subtraction,'-')
+				execute_option_type1(op_history,subtraction,'-')
 			case "3":
-				execute_option_type1(multiply,'*')
+				execute_option_type1(op_history,multiply,'*')
 			case "4":
-				execute_option_type1(division,'/')
+				execute_option_type1(op_history,division,'/')
 			case "5":
-				execute_option_type2(round_number)
-				menu()
+				execute_option_type2(op_history,round_number)
 			case "6":
-				execute_option_type2(power2)
-				menu()
+				execute_option_type2(op_history,power2)
+			case "7":
+				#view_op_history(op_history)
+				print(op_history)
+				menu(op_history)
 			case _:
-				menu()
+				menu(op_history)
 	
 def main():
-	menu()
+	op_history=[]
+	menu(op_history)
 
 if __name__ == "__main__":
 	main()
